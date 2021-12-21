@@ -1,4 +1,72 @@
-# dockerfile
-the code of dockerfile
-for detial : https://hub.docker.com/repositories
+# Readme
+Dockerfile for ArcGIS Enterprise
+
+各自的Dockerfile在对应的文件夹下，不同版本Dockerfile基本相同，所以只做一份Dockerfile。
+
+Each Dockerdile put in each folder。Different version are most likely,so I just put only on Dockerfile.
+
+独立使用，则直接运行。
+
+Independent used,just run docker.
+
+需要进行webadaptor反向代理，则配置对应的一个专有的网络，以 arcgis.net为例：docker create newtowrk arcgis.net。
+
+If you want config webadaptor reverse proxy，a network is nessnecary。 For example: docker create newtowrk arcgis.net 
+
+机器配置不足，可以设定 -m 3G 作为作为内存上限。
+
+If you don`t have enough menory to run the application, -m 3G is the least limit of portal .
+
+
+
+举例说明（push on examples）
+
+arcgis server 创建：(arcgis server docker run:)
+
+docker run -d --name=arcgisserver  --hostname=server.arcgis.net --net=arcgis.net -p 6080:6080 -p 6443:6443 davidocean/arcgisserver:10.3.1
+
+
+
+portal for arcgis 创建：(portal for arcgis docker run:)
+
+docker run -d -m 3G --name=portal --hostname=portal.arcgis.net --net=arcgis.net -v /home/lis:/home/ -p 7080:7080 -p 7443:7443 davidocean/arcgisportal:10.7
+
+
+
+webadaptor创建：(webadaptor docker run:)
+
+docker run -d -m 500M --name=webadaptor --hostname=xxx.xxx.com --net=arcgis.net -p 80:80 -p 443:443 davidocean/arcgiswebadaptor:10.7
+
+
+
+webadaptor配置说明：（详情查看arcgis webadaptor/readme）
+
+webadaptor config : more details :arcgis_webadaptor/readme
+
+webadaptor配置server：(config arcgis server)
+./configurewebadaptor.sh -m server -w http://xxx.xxx.com/arcgis/webadaptor -g http://agsserver.arcgis.net:6080 -u arcgis -p admin123 -a true
+
+webadaprot配置portal：(config portal)
+
+./configurewebadaptor.sh -m portal -w https://xx.xxx.com/arcgis/webadaptor -g https://portal.arcgis.net:7443 -u arcgis -p admin123
+
+
+
+其他:(issue)
+
+0 webadaptor 最后创建（webadaptor always be the last application to run.）
+
+1 Portal for ArcGIS 10.3 无效，不建议使用。(portal for arcgis 10.3 is not available for docker ,just give up the version)
+
+2.使用centos7作为linux环境。（centos 7 is the base environment）
+
+3.webadaptor 使用自签名证书，有需要可以自己替换为CA证书。（webadaptor use the Self signed certificate,you can exchange the CA certificate）
+
+4.所有许可都没有，需要自己配置。(no license is provided,you should licensed by yourself)
+
+
+
+
+
+docker hub : https://hub.docker.com/repositories
 

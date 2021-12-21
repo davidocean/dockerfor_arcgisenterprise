@@ -2,6 +2,10 @@ FROM centos:7.0.1406
 
 MAINTAINER David.Ocean <2735403137@qq.com>
 
+LABEL version="portal for arcgis 10.7" \
+	  author="David.Ocean" \
+	  description="This is for David.Ocean"
+
 RUN yum install -y net-tools fontconfig freetype gettext libpng libXfont mesa-libGL mesa-libGLU Xvfb libXtst libXi libXrender vim tar hostname libSM libXext
 
 COPY ./* /tmp/

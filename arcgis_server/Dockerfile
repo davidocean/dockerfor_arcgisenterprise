@@ -2,6 +2,11 @@ FROM centos:7.0.1406
 
 MAINTAINER David.Ocean <2735403137@qq.com>
 
+LABEL version="arcgis server 10.5" \
+	  author="David.Ocean" \
+	  description="This is for David.Ocean"
+
+
 RUN yum install -y net-tools fontconfig freetype gettext libXfont mesa-libGL mesa-libGLU Xvfb libXtst libXi libXrender vim tar hostname
 
 COPY ./* /tmp/
