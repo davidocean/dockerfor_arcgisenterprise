@@ -1,12 +1,12 @@
 如果没有专有网络，那么最好先创建一个 :（you would better to create a network if it doesn`t exist)
 
-**docker network create arcgis.net**
+**docker network create arcgis.lan **
 
 
 
 docker run：
 
-**docker run -d -m 500M --name=webadaptor --hostname=xx.xxx.com --net=arcgis.net -p 80:80 -p 443:443 davidocean/arcgiswebadaptor:tag**
+**docker run -d -m 500M --name=webadaptor --hostname=xx.xxx.com --net=arcgis.lan -p 80:80 -p 443:443 davidocean/arcgiswebadaptor:tag**
 
 
 
@@ -15,20 +15,17 @@ docker run：
 配置server：
 
 ~~~shell
-[root@VM-16-15-centos webadaptor103]# docker exec -it webadaptor /bin/bash
-root@dai:/usr/local/tomcat# cd /arcgis/webadaptor10.3/java/tools/
-
 ##########   仅配置 http   (only config http)
-root@dai:/arcgis/webadaptor10.3/java/tools# ./configurewebadaptor.sh -m server -w http://xx.xxx.com/arcgis/webadaptor -g http://agsserver.arcgis.net:6080 -u arcgis -p admin123 -a true
+[root@VM-16-15-centos ~]# docker exec -it webadaptor bash /arcgis/webadaptor10.3/java/tools/configurewebadaptor.sh -m server -w http://xx.xxx.com/arcgis/webadaptor -g http://agsserver.arcgis.lan:6080 -u arcgis -p admin123 -a true
 
 ##########   配置 https   (config https include http)
-root@dai:/arcgis/webadaptor10.3/java/tools# ./configurewebadaptor.sh -m server -w https://xx.xxx.com/arcgis/webadaptor -g https://agsserver.arcgis.net:6443 -u arcgis -p admin123 -a true
+[root@VM-16-15-centos ~]# docker exec -it webadaptor bash /arcgis/webadaptor10.3/java/tools/configurewebadaptor.sh -m server -w https://xx.xxx.com/arcgis/webadaptor -g https://agsserver.arcgis.lan:6443 -u arcgis -p admin123 -a true
 ~~~
 
 配置 portal for arcgis(config portal)
 
 ~~~shell
-root@dai:/arcgis/webadaptor10.7/java/tools# ./configurewebadaptor.sh -m portal -w https://xx.xxx.com/arcgis/webadaptor -g https://portal.arcgis.net:7443 -u arcgis -p admin123
+[root@VM-16-15-centos ~]# docker exec -it webadaptor bash /arcgis/webadaptor10.7/java/tools/configurewebadaptor.sh  -m portal -w https://xx.xxx.com/arcgis/webadaptor -g https://portal.arcgis.lan:7443 -u arcgis -p admin123
 ~~~
 
 另外，如果你有CA证书，想进行添加，可以如此：(if you have the CA certificate,you can add to tomcat )
@@ -53,3 +50,8 @@ keystorePass = "this ca password"
 另：（issues）
 
 webadaptor 在portal和server完成站点创建后再启动。（webadaptor should docker run after portal or arcgis server has already create success)
+
+
+
+
+

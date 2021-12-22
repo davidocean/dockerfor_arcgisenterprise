@@ -1,12 +1,14 @@
 如果没有专有网络，那么最好先创建一个 :（you would better to create a network if it doesn`t exist)
 
-**docker network create arcgis.net**
+**docker network create arcgis.lan**
 
 
 
 docker run：
 
-**docker run -d --name=arcgisserver  --hostname=server.arcgis.net --net=arcgis.net -p 6080:6080 -p 6443:6443 davidocean/arcgisserver:tag**
+~~~shell
+docker run -d --name=arcgisserver  --hostname=server.arcgis.lan --net=arcgis.lan -p 6080:6080 -p 6443:6443 davidocean/arcgisserver:tag
+~~~
 
 
 
@@ -24,9 +26,9 @@ http://xx.xxx.com:6080/arcgis/admin/security/config/update
 
 配置webadaptor：(config webadaptor )
 
-**/configurewebadaptor.sh -m server -w https://xx.xxx.com/arcgis/webadaptor -g https://server.arcgis.net:6443 -u arcgis -p admin123 -a true**
-
-
+~~~shell
+[root@VM-16-15-centos ~]# docker exec -it webadaptor bash /arcgis/webadaptor10.3/java/tools/configurewebadaptor.sh -m server -w https://webadaptor/arcgis/webadaptor -g https://arcgisserver:6443 -u arcgis -p admin123 -a true
+~~~
 
 
 
