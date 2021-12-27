@@ -44,11 +44,20 @@ webadaptor配置说明：（详情查看arcgis webadaptor/readme）
 webadaptor config : more details :arcgis_webadaptor/readme
 
 webadaptor配置server：(config arcgis server)
-./configurewebadaptor.sh -m server -w http://webadaptor.arcgis.lan/arcgis/webadaptor -g http://arcgiserver.arcgis.lan:6080 -u arcgis -p admin123 -a true
+
+~~~shell
+# 使用 configurewebadaptor.sh 进行配置webadaptor    help url:https://enterprise.arcgis.com/zh-cn/server/10.6/install/linux/configure-arcgis-web-adaptor-after-installation.htm
+
+[root@VM-16-15-centos ~]# docker exec -it webadaptor bash /arcgis/webadaptor10.3/java/tools/configurewebadaptor.sh -m server -w http://webadaptor/arcgis/webadaptor -g http://arcgisserver:6080 -u arcgis -p admin123 -a true
+~~~
+
+
 
 webadaprot配置portal：(config portal)
 
-./configurewebadaptor.sh -m portal -w https://webadaptor.arcgis.lan/arcgis/webadaptor -g https://portal.arcgis.lan:7443 -u arcgis -p admin123
+~~~shell
+[root@VM-16-5-centos ~]# docker exec -it webadaptor bash /arcgis/webadaptor10.7/java/tools/configurewebadaptor.sh -m portal -w https://webadaptor.arcgis.lan/arcgis/webadaptor -g https://portal.arcgis.lan:7443 -u arcgis -p admin123
+~~~
 
 
 
